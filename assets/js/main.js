@@ -21,6 +21,8 @@ function loadFromSave() {
     if (savegame !== null) {
         console.log("Loaded Savegame")
         gameData = savegame
+        document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
+        document.getElementById("perClickUpgrade").innerHTML = "Add more Zombies to mine (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
     }
 }
 // Loops
