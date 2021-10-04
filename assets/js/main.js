@@ -17,7 +17,7 @@ function buyGoldPerClick() {
     }
 }
 function loadFromSave() {
-    var savegame = JSON.parse(localStorage.getItem("goldMinerSave"))
+    var savegame = JSON.parse(localStorage.getItem("endlessHordeSave"))
     if (savegame !== null) {
         console.log("Loaded Savegame")
         gameData = savegame
