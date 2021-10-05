@@ -1,19 +1,15 @@
-var gameData = {
-    gold: 0,
-    goldPerClick: 1,
-    goldPerClickCost: 10
+var gameData
+
+// ----------- Basic Functions -------------
+function init() {
+    resetData()
+    loadFromSave()
 }
-function mineGold() {
-    gameData.gold += gameData.goldPerClick
-    document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
-}
-function buyGoldPerClick() {
-    if (gameData.gold >= gameData.goldPerClickCost) {
-        gameData.gold -= gameData.goldPerClickCost
-        gameData.goldPerClick += 1
-        gameData.goldPerClickCost *= 2
-        document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
-        document.getElementById("perClickUpgrade").innerHTML = "Add more Zombies to mine (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
+function resetData() {
+    gameData = {
+        gold: 0,
+        goldPerClick: 1,
+        goldPerClickCost: 10
     }
 }
 function loadFromSave() {
@@ -21,15 +17,40 @@ function loadFromSave() {
     if (savegame !== null) {
         console.log("Loaded Savegame")
         gameData = savegame
-        document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
-        document.getElementById("perClickUpgrade").innerHTML = "Add more Zombies to mine (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
+        updateGoldMinded()
+        updatePerClickUpgrade()
     }
 }
-// Loops
+function saveGame(){
+    localStorage.setItem("endlessHordeSave", JSON.stringify(gameData))
+}
+// ----------- Update Elements -------------
+function updateGoldMinded(){
+    document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
+}
+function updatePerClickUpgrade(){
+    document.getElementById("perClickUpgrade").innerHTML = "Add more Zombies to mine (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
+}
+// ----------- Game Elements -------------
+function mineGold() {
+    gameData.gold += gameData.goldPerClick
+    updateGoldMinded()
+}
+function buyGoldPerClick() {
+    if (gameData.gold >= gameData.goldPerClickCost) {
+        gameData.gold -= gameData.goldPerClickCost
+        gameData.goldPerClick += 1
+        gameData.goldPerClickCost *= 2
+        updateGoldMinded()
+        updatePerClickUpgrade()
+    }
+}
+
+// ----------- Loops -------------
 var mainGameLoop = window.setInterval(function() {
     mineGold()
 }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
-    localStorage.setItem("endlessHordeSave", JSON.stringify(gameData))
+    saveGame()
 }, 15000)
