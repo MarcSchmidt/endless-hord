@@ -11,19 +11,25 @@
     <title>Endless Horde</title>
 </head>
 <body onload="init()" class="mdc-theme--background mdc-typography">
-    <h1 id="goldMined" class="mdc-typography--headline3">0 Gold Mined</h1>
+    <p id="goldMined" class="mdc-typography--headline3">0 Gold Mined</p>
     <button onclick="mineGold()" class="mdc-button mdc-button--raised">
         <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
         <span class="mdc-button__label">Mine Gold</span>
     </button>
-    <button onclick="buyGoldPerClick()" id="perClickUpgrade" class="mdc-button mdc-button--raised">
+    <button onclick="addZombieToMine()" id="addZombieToMine" class="mdc-button mdc-button--raised">
         <i class="material-icons mdc-button__icon" aria-hidden="true">person_add_alt_1</i>
-        <span class="mdc-button__label">Add more Zombies to mine (Currently Level 1) Cost: 10 Gold</span>
+        <span class="mdc-button__label">Add more Zombies to mine (Cost: 10 Gold)</span>
     </button>
-    <button onclick="loadFromSave()" id="loadFromSave" class="loadFromSave mdc-button mdc-button--outlined">
+    <p id="zombies">1 Zombies</p>
+    <button onclick="loadFromSave()" id="loadFromSave" class="mdc-button mdc-button--outlined">
         <span class="mdc-button__ripple"></span>
         <i class="material-icons mdc-button__icon" aria-hidden="true">file_upload</i>
         <span class="mdc-button__label">Load from Save</span>  
+    </button>
+    <button onclick="resetData()" id="resetData" class="mdc-button mdc-button--outlined">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">refresh</i>
+        <span class="mdc-button__label">Hard Reset</span>  
     </button>
 </body>
 </html>

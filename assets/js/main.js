@@ -2,15 +2,21 @@ var gameData
 
 // ----------- Basic Functions -------------
 function init() {
-    resetData()
     loadFromSave()
+    if (gameData == null) {
+        resetData()
+    }
 }
 function resetData() {
     gameData = {
         gold: 0,
         goldPerClick: 1,
-        goldPerClickCost: 10
+        addZombieCost: 10,
+        zombies: 1
     }
+    updateGoldMinded()
+    updateAddZombieToMine()
+    updateZombies()
 }
 function loadFromSave() {
     var savegame = JSON.parse(localStorage.getItem("endlessHordeSave"))
@@ -18,7 +24,8 @@ function loadFromSave() {
         console.log("Loaded Savegame")
         gameData = savegame
         updateGoldMinded()
-        updatePerClickUpgrade()
+        updateAddZombieToMine()
+        updateZombies()
     }
 }
 function saveGame(){
@@ -28,21 +35,25 @@ function saveGame(){
 function updateGoldMinded(){
     document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
 }
-function updatePerClickUpgrade(){
-    document.getElementById("perClickUpgrade").innerHTML = "Add more Zombies to mine (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
+function updateAddZombieToMine(){
+    document.getElementById("addZombieToMine").innerHTML = "Add more Zombies to mine (Cost: " + gameData.addZombieCost + " Gold)"
+}
+function updateZombies(){
+    document.getElementById("zombies").innerHTML = gameData.zombies + " Zombies"
 }
 // ----------- Game Elements -------------
 function mineGold() {
-    gameData.gold += gameData.goldPerClick
+    gameData.gold += gameData.goldPerClick * gameData.zombies
     updateGoldMinded()
 }
-function buyGoldPerClick() {
-    if (gameData.gold >= gameData.goldPerClickCost) {
-        gameData.gold -= gameData.goldPerClickCost
-        gameData.goldPerClick += 1
-        gameData.goldPerClickCost *= 2
+function addZombieToMine() {
+    if (gameData.gold >= gameData.addZombieCost) {
+        gameData.gold -= gameData.addZombieCost
+        gameData.addZombieCost *= 2
+        gameData.zombies += 1
         updateGoldMinded()
-        updatePerClickUpgrade()
+        updateAddZombieToMine()
+        updateZombies()
     }
 }
 
