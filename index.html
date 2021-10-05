@@ -3,14 +3,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/style/main.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js" async></script>
+    <script src="assets/js/main.js" async></script>
     <title>Endless Horde</title>
 </head>
-<body>
-    <p id="goldMined">0 Gold Mined</p>
-    <button onclick="mineGold()">Mine Gold</button>
-    <button onclick="buyGoldPerClick()" id="perClickUpgrade">Add more Zombies to mine (Currently Level 1) Cost: 10 Gold</button>
-    <button onclick="loadFromSave()" id="loadFromSave">Load from Save</button>
-    <script src="assets/js/main.js"></script>
+<body onload="loadFromSave()" class="mdc-theme--background mdc-typography">
+    <h1 id="goldMined" class="mdc-typography--headline3">0 Gold Mined</h1>
+    <button onclick="mineGold()" class="mdc-button mdc-button--raised">
+        <i class="material-icons mdc-button__icon" aria-hidden="true">attach_money</i>
+        <span class="mdc-button__label">Mine Gold</span>
+    </button>
+    <button onclick="buyGoldPerClick()" id="perClickUpgrade" class="mdc-button mdc-button--raised">
+        <i class="material-icons mdc-button__icon" aria-hidden="true">person_add_alt_1</i>
+        <span class="mdc-button__label">Add more Zombies to mine (Currently Level 1) Cost: 10 Gold</span>
+    </button>
+    <button onclick="loadFromSave()" id="loadFromSave" class="loadFromSave mdc-button mdc-button--outlined">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">file_upload</i>
+        <span class="mdc-button__label">Load from Save</span>  
+    </button>
 </body>
 </html>
