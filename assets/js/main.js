@@ -2,7 +2,7 @@ var gameData
 
 // ----------- Basic Functions -------------
 function init() {
-    loadFromSave()
+    loadFromStorage()
     if (gameData == null) {
         resetData()
     }
@@ -14,24 +14,33 @@ function resetData() {
         addZombieCost: 10,
         zombies: 1
     }
-    updateGoldMinded()
-    updateAddZombieToMine()
-    updateZombies()
+    updateEverything()
+}
+function loadFromStorage() {
+    var savegame = JSON.parse(localStorage.getItem("endlessHordeSave"))
+    loadFromJson(saveGame)
 }
 function loadFromSave() {
-    var savegame = JSON.parse(localStorage.getItem("endlessHordeSave"))
-    if (savegame !== null) {
-        console.log("Loaded Savegame")
-        gameData = savegame
-        updateGoldMinded()
-        updateAddZombieToMine()
-        updateZombies()
+    // Load from a json file
+    var savegame
+    loadFromJson(saveGame)
+    saveGame()
+}
+function loadFromJson(jsonString){
+    if (jsonString !== null) {
+        gameData = jsonString
+        updateEverything()
     }
 }
 function saveGame(){
     localStorage.setItem("endlessHordeSave", JSON.stringify(gameData))
 }
 // ----------- Update Elements -------------
+function updateEverything() {
+    updateGoldMinded()
+    updateAddZombieToMine()
+    updateZombies()
+}
 function updateGoldMinded(){
     document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
 }
@@ -51,9 +60,7 @@ function addZombieToMine() {
         gameData.gold -= gameData.addZombieCost
         gameData.addZombieCost *= 2
         gameData.zombies += 1
-        updateGoldMinded()
-        updateAddZombieToMine()
-        updateZombies()
+        updateEverything()
     }
 }
 
